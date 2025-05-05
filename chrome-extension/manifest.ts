@@ -37,7 +37,6 @@ const manifest = {
     type: 'module',
   },
   action: {
-    // default_popup: 'popup/index.html',
     default_icon: 'icon-34.png',
     default_title: 'Click to open panel',
   },
@@ -49,10 +48,6 @@ const manifest = {
     {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],
       js: ['content/index.iife.js'],
-    },
-    {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      js: ['content-ui/index.iife.js'],
     },
     {
       matches: ['http://*/*', 'https://*/*', '<all_urls>'],

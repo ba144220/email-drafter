@@ -1,5 +1,6 @@
 import { resolve } from 'node:path';
 import { withPageConfig } from '@extension/vite-config';
+import tailwindcss from '@tailwindcss/vite';
 
 const rootDir = resolve(import.meta.dirname);
 const srcDir = resolve(rootDir, 'src');
@@ -14,4 +15,5 @@ export default withPageConfig({
   build: {
     outDir: resolve(rootDir, '..', '..', 'dist', 'side-panel'),
   },
+  plugins: [tailwindcss()],
 });

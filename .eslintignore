@@ -1,0 +1,10 @@
+# Build output
+dist/
+build/
+
+# Package managers
+node_modules/
+
+# UI components
+**/components/ui/**
+pages/side-panel/src/components/ui/** 
