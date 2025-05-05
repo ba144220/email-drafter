@@ -1,20 +1,19 @@
 import '@src/SidePanel.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import { ToggleButton } from '@extension/ui';
-import { useState } from 'react';
-import { Button } from './components/ui/button';
+import { Textarea } from './components/ui/textarea';
 
 const SidePanel = () => {
-  const [count, setCount] = useState<number>(0);
-
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="font-bold text-2xl">Side Panel</h1>
-      <p className="text-lg text-blue-500">Count: {count}</p>
-      <ToggleButton onClick={() => setCount(count + 1)}>Increment</ToggleButton>
-      <Button variant="default" onClick={() => setCount(count + 1)} size={'sm'}>
-        Increment
-      </Button>
+    <div className="bg-background text-xs fixed top-0 left-0 p-1.5 w-full h-screen flex flex-col">
+      {/* Messages */}
+      <div className="flex-1 ">test</div>
+      {/* Textarea */}
+      <div className="">
+        <Textarea
+          className="text-xs text-foreground/65 rounded-lg max-h-96 resize-none focus-visible:border-ring focus-visible:ring-0 transition-all duration-200 placeholder:opacity-75"
+          placeholder="Type a message"
+        />
+      </div>
     </div>
   );
 };
