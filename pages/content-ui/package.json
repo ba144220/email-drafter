@@ -23,10 +23,12 @@
   },
   "dependencies": {
     "@extension/env": "workspace:*",
+    "@extension/i18n": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/ui": "workspace:*",
-    "@extension/i18n": "workspace:*"
+    "is-hotkey": "^0.2.0",
+    "openai": "^4.97.0"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",
