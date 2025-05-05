@@ -37,8 +37,9 @@ const manifest = {
     type: 'module',
   },
   action: {
-    default_popup: 'popup/index.html',
+    // default_popup: 'popup/index.html',
     default_icon: 'icon-34.png',
+    default_title: 'Click to open panel',
   },
   chrome_url_overrides: {},
   icons: {
