@@ -7,9 +7,9 @@ const SidePanel = () => {
   const [count, setCount] = useState<number>(0);
 
   return (
-    <div>
-      <h1>Side Panel</h1>
-      <p>Count: {count}</p>
+    <div className="flex flex-col items-center justify-center h-full">
+      <h1 className="font-bold text-2xl">Side Panel</h1>
+      <p className="text-lg text-blue-500">Count: {count}</p>
       <ToggleButton onClick={() => setCount(count + 1)}>Increment</ToggleButton>
     </div>
   );
