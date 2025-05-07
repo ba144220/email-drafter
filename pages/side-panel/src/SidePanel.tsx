@@ -1,9 +1,9 @@
 import '@src/SidePanel.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import Thread from './components/chat/thread';
+import UseStreamTest from './components/chat/use-stream-test';
 
 const SidePanel = () => {
-  return <Thread />;
+  return <UseStreamTest />;
 };
 
 export default withErrorBoundary(withSuspense(SidePanel, <div> Loading ... </div>), <div> Error Occur </div>);
