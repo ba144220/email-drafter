@@ -7,4 +7,4 @@ const model = new ChatOpenAI({
   apiKey: process.env.CEB_OPENAI_API_KEY,
 });
 
-export { model };
+export default model;

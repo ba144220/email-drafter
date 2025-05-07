@@ -1,9 +1,10 @@
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { model } from '../models/openai';
+// import openaiModel from '../models/openai';
+import anthropicModel from '../models/anthropic';
 import { searchTool } from '../tools/search';
 
 const agent = createReactAgent({
-  llm: model,
+  llm: anthropicModel,
   tools: [searchTool],
 });
 
