@@ -16,7 +16,7 @@ export default function UseStreamTest() {
           <div
             key={message.id}
             className={cn('flex flex-row gap-2', message.type === 'human' ? 'justify-end' : 'justify-start')}>
-            <div className={cn(message.type === 'human' ? '' : '')}>
+            <div className={cn(message.type === 'tool' ? 'text-xs text-muted-foreground' : '')}>
               {(message.content as string).split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {' '}
