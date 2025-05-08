@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '@src/lib/utils';
 export default function UseStreamTest() {
   const thread = useStream<{ messages: Message[] }>({
-    apiUrl: 'http://localhost:2024',
+    apiUrl: 'http://localhost:5678',
     assistantId: 'agent',
     messagesKey: 'messages',
   });
