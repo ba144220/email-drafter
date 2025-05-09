@@ -27,6 +27,7 @@ export function ensureConfiguration(
   return {
     systemPromptTemplate:
       configurable.systemPromptTemplate ?? SYSTEM_PROMPT_TEMPLATE,
-    model: configurable.model ?? "openai/gpt-4o-mini",
+    // model: configurable.model ?? "openai/gpt-4o-mini",
+    model: configurable.model ?? "claude-3-5-haiku-latest",
   };
 }
