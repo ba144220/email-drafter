@@ -1,4 +1,5 @@
 import { initChatModel } from "langchain/chat_models/universal";
+import { type BaseMessage, HumanMessage } from "@langchain/core/messages";
 
 /**
  * Load a chat model from a fully specified name.
@@ -17,4 +18,43 @@ export async function loadChatModel(
     const model = fullySpecifiedName.slice(index + 1);
     return await initChatModel(model, { modelProvider: provider });
   }
+}
+
+function constructWebViewPrompt(
+  url: string,
+  title: string,
+  htmlContent: string
+): string {
+  return `
+# Webview
+* URL: ${url}
+* Title: ${title}
+* HTML: 
+${htmlContent}
+`;
+}
+
+export function messagesDecorator(messages: BaseMessage[]): BaseMessage[] {
+  return messages.map((message) => {
+    if (!(message instanceof HumanMessage)) {
+      return message;
+    }
+    if (message.content instanceof Array) {
+      const newContent = message.content.map((content) => {
+        if (content.type === "webview") {
+          return {
+            type: "text",
+            text: constructWebViewPrompt(
+              content.url,
+              content.title,
+              content.htmlContent
+            ),
+          };
+        }
+        return content;
+      });
+      return new HumanMessage({ ...message, content: newContent });
+    }
+    return message;
+  });
 }

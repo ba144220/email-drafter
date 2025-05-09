@@ -1,5 +1,5 @@
 import { useStream } from '@langchain/langgraph-sdk/react';
-import type { Message } from '@langchain/langgraph-sdk';
+import type { HumanMessage, Message } from '@langchain/langgraph-sdk';
 
 import { useChromeTools } from '@src/hooks/use-chrome-tools';
 import { MessageContainer } from './message-container';
@@ -29,8 +29,23 @@ export default function UseStreamTest() {
           const message = new FormData(form).get('message') as string;
 
           form.reset();
+          const msg: HumanMessage = {
+            type: 'human',
+            content: [
+              {
+                type: 'text',
+                text: message,
+              },
+              {
+                type: 'webview',
+                url: 'https://langchain-ai.github.io/langgraph/how-tos/configuration/#configure-the-graph',
+                title: 'LangGraph Configuration',
+                htmlContent: '<h1>Hello</h1>',
+              },
+            ],
+          };
 
-          thread.submit({ messages: [{ type: 'human', content: message }] });
+          thread.submit({ messages: [msg] });
         }}>
         <input type="text" name="message" className="flex-1 bg-muted" />
 

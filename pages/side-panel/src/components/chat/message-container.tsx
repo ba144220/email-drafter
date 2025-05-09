@@ -36,6 +36,8 @@ export const MessageContainer = ({ message }: { message: Message }) => {
                     content={typeof content.image_url === 'string' ? content.image_url : content.image_url.url}
                   />
                 );
+              default:
+                return null;
             }
           })
         )}

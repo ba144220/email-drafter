@@ -18,6 +18,6 @@
     "allowJs": true,
     "strict": true
   },
-  "include": ["src/"],
+  "include": ["src/", "../../pages/side-panel/src/langgraph-aug-types.d.ts"],
   "exclude": ["node_modules/", "dist"]
 }

@@ -5,7 +5,7 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 
 import { ConfigurationSchema, ensureConfiguration } from "./configuration.js";
 import { TOOLS } from "./tools.js";
-import { loadChatModel } from "./utils.js";
+import { loadChatModel, messagesDecorator } from "./utils.js";
 
 import { MemorySaver } from "@langchain/langgraph-checkpoint";
 
@@ -22,6 +22,8 @@ async function callModel(
   // Feel free to customize the prompt, model, and other logic!
   const model = (await loadChatModel(configuration.model)).bindTools(TOOLS);
 
+  const messages = messagesDecorator(state.messages);
+
   const response = await model.invoke([
     {
       role: "system",
@@ -30,8 +32,12 @@ async function callModel(
         new Date().toISOString()
       ),
     },
-    ...state.messages,
+    ...messages,
   ]);
+
+  console.log("------------ response ---------------");
+  console.log(response);
+  console.log("--------------------------------");
 
   // We return a list, because this will get added to the existing list
   return { messages: [response] };
