@@ -5,7 +5,11 @@
 // import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 
 import { tool } from "@langchain/core/tools";
-
+import {
+  getAllTabsInfo,
+  getCurrentTabView,
+  getTabById,
+} from "./browser_tools.js";
 import { z } from "zod";
 
 const searchTool = tool(
@@ -27,4 +31,9 @@ const searchTool = tool(
   }
 );
 
-export const TOOLS = [searchTool];
+export const TOOLS = [
+  searchTool,
+  getAllTabsInfo,
+  getCurrentTabView,
+  getTabById,
+];

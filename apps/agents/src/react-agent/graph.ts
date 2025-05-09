@@ -7,6 +7,10 @@ import { ConfigurationSchema, ensureConfiguration } from "./configuration.js";
 import { TOOLS } from "./tools.js";
 import { loadChatModel } from "./utils.js";
 
+import { MemorySaver } from "@langchain/langgraph-checkpoint";
+
+const checkpointer = new MemorySaver();
+
 // Define the function that calls the model
 async function callModel(
   state: typeof MessagesAnnotation.State,
@@ -50,7 +54,7 @@ function routeModelOutput(state: typeof MessagesAnnotation.State): string {
 // Define a new graph. We use the prebuilt MessagesAnnotation to define state:
 // https://langchain-ai.github.io/langgraphjs/concepts/low_level/#messagesannotation
 const workflow = new StateGraph(MessagesAnnotation, ConfigurationSchema)
-  // Define the two nodes we will cycle between
+  // Define the nodes
   .addNode("callModel", callModel)
   .addNode("tools", new ToolNode(TOOLS))
   // Set the entrypoint as `callModel`
@@ -72,4 +76,5 @@ const workflow = new StateGraph(MessagesAnnotation, ConfigurationSchema)
 export const graph = workflow.compile({
   interruptBefore: [], // if you want to update the state before calling the tools
   interruptAfter: [],
+  checkpointer,
 });
