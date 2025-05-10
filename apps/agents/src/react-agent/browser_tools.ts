@@ -18,17 +18,17 @@ export const getAllTabsInfo = tool(
   }
 );
 
-export const getCurrentTabView = tool(
+export const getActiveTabView = tool(
   async () => {
     const response: string = interrupt({
-      name: "getCurrentTabView",
+      name: "getActiveTabView",
       input: {},
     });
     return response;
   },
   {
-    name: "getCurrentTabView",
-    description: "Get the view of the current tab in the browser",
+    name: "getActiveTabView",
+    description: "Get the view of the active tab in the browser",
     schema: z.object({}),
   }
 );
@@ -60,7 +60,7 @@ export type InterruptValue =
       input: GetTabByIdInput;
     }
   | {
-      name: "getCurrentTabView";
+      name: "getActiveTabView";
       input: {};
     }
   | {

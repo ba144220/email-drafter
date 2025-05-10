@@ -3,6 +3,9 @@ import type { HumanMessage, Message } from '@langchain/langgraph-sdk';
 
 import { useChromeTools } from '@src/hooks/use-chrome-tools';
 import { MessageContainer } from './message-container';
+import { getActiveTabView } from '@src/tools/get-current-tab-view';
+import type { MessageContentComplex } from '@src/langgraph-aug-types';
+
 export default function UseStreamTest() {
   const thread = useStream<{ messages: Message[] }>({
     apiUrl: 'http://localhost:5678',
@@ -29,20 +32,29 @@ export default function UseStreamTest() {
           const message = new FormData(form).get('message') as string;
 
           form.reset();
+          // Check if this is the first message
+          const isFirstMessage = thread.messages.length === 0;
+          console.log('------------ isFirstMessage ---------------');
+          console.log(isFirstMessage);
+          console.log('--------------------------------');
+          const messages: MessageContentComplex[] = [];
+          if (isFirstMessage) {
+            const tabView = await getActiveTabView();
+            messages.push({
+              type: 'webview',
+              url: tabView.url,
+              title: tabView.title,
+              htmlContent: tabView.htmlContent,
+            });
+          }
+          messages.push({
+            type: 'text',
+            text: message,
+          });
+
           const msg: HumanMessage = {
             type: 'human',
-            content: [
-              {
-                type: 'text',
-                text: message,
-              },
-              {
-                type: 'webview',
-                url: 'https://langchain-ai.github.io/langgraph/how-tos/configuration/#configure-the-graph',
-                title: 'LangGraph Configuration',
-                htmlContent: '<h1>Hello</h1>',
-              },
-            ],
+            content: messages,
           };
 
           thread.submit({ messages: [msg] });

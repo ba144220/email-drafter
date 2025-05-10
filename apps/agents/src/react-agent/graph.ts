@@ -21,7 +21,6 @@ async function callModel(
 
   // Feel free to customize the prompt, model, and other logic!
   const model = (await loadChatModel(configuration.model)).bindTools(TOOLS);
-
   const messages = messagesDecorator(state.messages);
 
   const response = await model.invoke([
@@ -34,10 +33,6 @@ async function callModel(
     },
     ...messages,
   ]);
-
-  console.log("------------ response ---------------");
-  console.log(response);
-  console.log("--------------------------------");
 
   // We return a list, because this will get added to the existing list
   return { messages: [response] };

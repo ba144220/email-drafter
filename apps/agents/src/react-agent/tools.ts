@@ -7,8 +7,8 @@
 import { tool } from "@langchain/core/tools";
 import {
   getAllTabsInfo,
-  getCurrentTabView,
-  getTabById,
+  getActiveTabView,
+  // getTabById,
 } from "./browser_tools.js";
 import { z } from "zod";
 
@@ -34,6 +34,6 @@ const searchTool = tool(
 export const TOOLS = [
   searchTool,
   getAllTabsInfo,
-  getCurrentTabView,
-  getTabById,
+  getActiveTabView,
+  // getTabById,
 ];

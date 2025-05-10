@@ -26,11 +26,12 @@ function constructWebViewPrompt(
   htmlContent: string
 ): string {
   return `
-# Webview
+# This is the information of the active tab in the browser
 * URL: ${url}
 * Title: ${title}
 * HTML: 
 ${htmlContent}
+\n\n
 `;
 }
 
@@ -40,6 +41,9 @@ export function messagesDecorator(messages: BaseMessage[]): BaseMessage[] {
       return message;
     }
     if (message.content instanceof Array) {
+      const hasWebview = message.content.some(
+        (content) => content.type === "webview"
+      );
       const newContent = message.content.map((content) => {
         if (content.type === "webview") {
           return {
@@ -51,8 +55,17 @@ export function messagesDecorator(messages: BaseMessage[]): BaseMessage[] {
             ),
           };
         }
+
+        if (hasWebview && content.type === "text") {
+          return {
+            type: "text",
+            text: `# User's prompt:
+${content.text}`,
+          };
+        }
         return content;
       });
+
       return new HumanMessage({ ...message, content: newContent });
     }
     return message;
