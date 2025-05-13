@@ -2,7 +2,7 @@ import { type useStream } from '@langchain/langgraph-sdk/react';
 import { useEffect } from 'react';
 import { type InterruptValue } from '@extension/agents/src/react-agent/browser_tools';
 import { getAllTabsInfo } from '../tools/get-all-tabs-info';
-import { getActiveTabView } from '@src/tools/get-current-tab-view';
+import { getActiveTabView } from '@src/tools/get-active-tab-view';
 
 export function useChromeTools(thread: ReturnType<typeof useStream>) {
   const { interrupt, submit } = thread;
