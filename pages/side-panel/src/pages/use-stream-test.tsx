@@ -2,7 +2,7 @@ import { useStream } from '@langchain/langgraph-sdk/react';
 import type { HumanMessage, Message } from '@langchain/langgraph-sdk';
 
 import { useChromeTools } from '@src/hooks/use-chrome-tools';
-import { MessageContainer } from './message-container';
+import { MessageContainer } from '../components/chat/message-container';
 import { getActiveTabView } from '@src/tools/get-current-tab-view';
 import type { MessageContentComplex } from '@src/langgraph-aug-types';
 

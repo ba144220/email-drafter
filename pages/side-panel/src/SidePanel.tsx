@@ -1,6 +1,6 @@
 import '@src/SidePanel.css';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
-import UseStreamTest from './components/chat/use-stream-test';
+import UseStreamTest from './pages/use-stream-test';
 
 const SidePanel = () => {
   return <UseStreamTest />;
