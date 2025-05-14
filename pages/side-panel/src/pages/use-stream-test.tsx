@@ -37,12 +37,33 @@ export default function UseStreamTest() {
           const messages: MessageContentComplex[] = [];
           if (isFirstMessage) {
             const tabView = await getActiveTabView();
+            let imageUrl = '';
+
+            await new Promise(resolve =>
+              chrome.tabs.captureVisibleTab(
+                {
+                  format: 'jpeg',
+                },
+                (dataUrl: string) => {
+                  imageUrl = dataUrl;
+                  resolve(void 0);
+                },
+              ),
+            );
             if (tabView) {
               messages.push({
                 type: 'webview',
                 url: tabView.url,
                 title: tabView.title,
                 htmlContent: tabView.htmlContent,
+              });
+
+              messages.push({
+                type: 'image_url',
+                image_url: {
+                  url: imageUrl,
+                  detail: 'high',
+                },
               });
             }
           }
