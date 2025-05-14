@@ -34,18 +34,17 @@ export default function UseStreamTest() {
           form.reset();
           // Check if this is the first message
           const isFirstMessage = thread.messages.length === 0;
-          console.log('------------ isFirstMessage ---------------');
-          console.log(isFirstMessage);
-          console.log('--------------------------------');
           const messages: MessageContentComplex[] = [];
           if (isFirstMessage) {
             const tabView = await getActiveTabView();
-            messages.push({
-              type: 'webview',
-              url: tabView.url,
-              title: tabView.title,
-              htmlContent: tabView.htmlContent,
-            });
+            if (tabView) {
+              messages.push({
+                type: 'webview',
+                url: tabView.url,
+                title: tabView.title,
+                htmlContent: tabView.htmlContent,
+              });
+            }
           }
           messages.push({
             type: 'text',

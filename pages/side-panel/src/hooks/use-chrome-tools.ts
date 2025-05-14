@@ -16,10 +16,14 @@ export function useChromeTools(thread: ReturnType<typeof useStream>) {
         submit(undefined, { command: { resume: result } });
       } else if (interruptValue.name === 'getActiveTabView') {
         const res = await getActiveTabView();
+        if (!res) {
+          submit(undefined, { command: { resume: 'No active tab found' } });
+          return;
+        }
         const resultString = `
 Title: ${res.title}
 URL: ${res.url}
-HTML Content: 
+HTML Content (converted to Markdown): 
 ${res.htmlContent}
 `;
         submit(undefined, { command: { resume: resultString } });

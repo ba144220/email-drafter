@@ -4,16 +4,12 @@ export async function getActiveTabView(): Promise<{
   title: string;
   url: string;
   htmlContent: string;
-}> {
+} | null> {
   // Get the html content of the current tab
   const tab = await chrome.tabs.query({ active: true });
   const activeTabId = tab[0].id;
   if (!activeTabId) {
-    return {
-      title: 'No active tab found',
-      url: 'No active tab found',
-      htmlContent: 'No active tab found',
-    };
+    return null;
   }
   // Get tab title
   const tabTitle = tab[0].title;
@@ -24,8 +20,12 @@ export async function getActiveTabView(): Promise<{
     func: getDOM,
     args: ['body'],
   });
+  if (!result[0].result) {
+    return null;
+  }
+  const res: string = result[0].result;
 
-  const domTree = await buildDomTree(result[0].result || '');
+  const domTree = await buildDomTree(res);
   return {
     title: tabTitle || 'No title',
     url: tabUrl || 'No url',
@@ -33,11 +33,11 @@ export async function getActiveTabView(): Promise<{
   };
 }
 
-function getDOM(selector: string) {
+function getDOM(selector: string): string | null {
   let ele: HTMLElement | null;
   if (selector) {
     ele = document.querySelector(selector);
-    if (!ele) return 'ERROR: querySelector failed to find node';
+    if (!ele) return null;
   } else {
     ele = document.documentElement;
   }
