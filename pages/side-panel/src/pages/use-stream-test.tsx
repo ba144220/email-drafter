@@ -51,12 +51,14 @@ export default function UseStreamTest() {
               ),
             );
             if (tabView) {
-              messages.push({
-                type: 'webview',
-                url: tabView.url,
-                title: tabView.title,
-                htmlContent: tabView.htmlContent,
-              });
+              if (tabView.htmlContent.length < 50000) {
+                messages.push({
+                  type: 'webview',
+                  url: tabView.url,
+                  title: tabView.title,
+                  htmlContent: tabView.htmlContent,
+                });
+              }
 
               messages.push({
                 type: 'image_url',

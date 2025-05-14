@@ -32,9 +32,10 @@ export const MessageContainer = ({ message }: { message: Message }) => {
                 return <StringMessage content={content.text} />;
               case 'image_url':
                 return (
-                  <ImageMessage
-                    content={typeof content.image_url === 'string' ? content.image_url : content.image_url.url}
-                  />
+                  // <ImageMessage
+                  //   content={typeof content.image_url === 'string' ? content.image_url : content.image_url.url}
+                  // />
+                  null
                 );
               default:
                 return null;
